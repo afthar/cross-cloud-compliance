@@ -1,0 +1,106 @@
+# GCP Security Command Center finding → compliance framework mapping
+# Maps SCC finding categories to Essential Eight strategies.
+
+provider: gcp
+source: security-command-center
+standards:
+  - "cis-gcp-benchmark/v/1.3.0"
+  - "gcp-security-health-analytics"
+
+finding_categories:
+  # IAM — maps to E8: Restrict Admin Privileges
+  ADMIN_SERVICE_ACCOUNT:
+    title: "Service account has admin privileges"
+    severity: HIGH
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 1
+
+  OVER_PRIVILEGED_SERVICE_ACCOUNT_USER:
+    title: "User has Service Account User role at project level or higher"
+    severity: MEDIUM
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 1
+
+  SERVICE_ACCOUNT_KEY_NOT_ROTATED:
+    title: "Service account key not rotated in 90 days"
+    severity: MEDIUM
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 2
+
+  NON_ORG_IAM_MEMBER:
+    title: "IAM member from outside the organisation"
+    severity: HIGH
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 2
+
+  # MFA — maps to E8: Multi-Factor Authentication
+  MFA_NOT_ENFORCED:
+    title: "MFA not enforced for user accounts"
+    severity: HIGH
+    e8_strategy: multi-factor-authentication
+    e8_maturity: 1
+
+  # Network — maps to E8: Application Control
+  OPEN_FIREWALL:
+    title: "Firewall rule allows access from 0.0.0.0/0"
+    severity: HIGH
+    e8_strategy: application-control
+    e8_maturity: 1
+
+  OPEN_SSH_PORT:
+    title: "SSH port open to the internet"
+    severity: HIGH
+    e8_strategy: application-control
+    e8_maturity: 1
+
+  OPEN_RDP_PORT:
+    title: "RDP port open to the internet"
+    severity: HIGH
+    e8_strategy: application-control
+    e8_maturity: 1
+
+  # Storage — maps to E8: Restrict Admin, Regular Backups
+  PUBLIC_BUCKET_ACL:
+    title: "Cloud Storage bucket is publicly accessible"
+    severity: HIGH
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 1
+
+  BUCKET_LOGGING_NOT_ENABLED:
+    title: "Cloud Storage bucket does not have logging enabled"
+    severity: LOW
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 2
+
+  # Compute — maps to E8: Patch OS
+  OS_VULNERABILITY:
+    title: "VM instance has OS vulnerability"
+    severity: HIGH
+    e8_strategy: patch-os
+    e8_maturity: 1
+
+  PUBLIC_IP_ADDRESS:
+    title: "VM instance has a public IP address"
+    severity: MEDIUM
+    e8_strategy: application-control
+    e8_maturity: 1
+
+  # Encryption — maps to E8: Regular Backups
+  DEFAULT_ENCRYPTION:
+    title: "Resource uses default encryption instead of CMEK"
+    severity: MEDIUM
+    e8_strategy: regular-backups
+    e8_maturity: 3
+
+  # Logging — supports audit trail for E8: Restrict Admin
+  AUDIT_LOGGING_DISABLED:
+    title: "Data access audit logging not enabled"
+    severity: MEDIUM
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 2
+
+  FLOW_LOGS_DISABLED:
+    title: "VPC flow logs not enabled on subnet"
+    severity: LOW
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 3

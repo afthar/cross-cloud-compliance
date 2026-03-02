@@ -1,0 +1,161 @@
+framework:
+  name: "ACSC Essential Eight"
+  version: "2024"
+  url: "https://www.cyber.gov.au/resources-business-and-government/essential-cyber-security/essential-eight"
+
+strategies:
+  application-control:
+    title: "Application Control"
+    maturity_levels:
+      1:
+        description: "Application control is implemented on workstations"
+        cloud_applicability: "limited"
+        controls:
+          - "Restrict execution environments in compute instances"
+          - "Container image allowlisting"
+      2:
+        description: "Application control is implemented on workstations and internet-facing servers"
+        cloud_applicability: "moderate"
+        controls:
+          - "All of ML1"
+          - "Serverless function deployment restrictions"
+          - "Signed container images only"
+      3:
+        description: "Application control is implemented on all servers and workstations"
+        cloud_applicability: "high"
+        controls:
+          - "All of ML2"
+          - "Binary authorization for all compute"
+          - "Runtime security monitoring"
+
+  patch-applications:
+    title: "Patch Applications"
+    maturity_levels:
+      1:
+        description: "Patches for internet-facing services applied within two weeks"
+        cloud_applicability: "high"
+        controls:
+          - "Managed service version currency"
+          - "Container base image age"
+          - "Lambda runtime version"
+      2:
+        description: "Patches for internet-facing services applied within 48 hours of availability"
+        cloud_applicability: "high"
+        controls:
+          - "All of ML1"
+          - "Automated patching for managed instances"
+          - "Vulnerability scanning with SLA enforcement"
+      3:
+        description: "Patches applied within 48 hours, vulnerability scanner used"
+        cloud_applicability: "high"
+        controls:
+          - "All of ML2"
+          - "Continuous vulnerability assessment"
+          - "Automated remediation pipelines"
+
+  restrict-admin-privileges:
+    title: "Restrict Administrative Privileges"
+    maturity_levels:
+      1:
+        description: "Privileged access to systems and applications is limited"
+        cloud_applicability: "critical"
+        controls:
+          - "No persistent admin credentials"
+          - "IAM policies follow least privilege"
+          - "Root/owner account secured and unused"
+          - "Service accounts scoped to specific resources"
+      2:
+        description: "Privileged access is validated and time-limited"
+        cloud_applicability: "critical"
+        controls:
+          - "All of ML1"
+          - "Just-in-time access for admin operations"
+          - "Admin actions logged and alerted"
+          - "Separate admin accounts from daily-use accounts"
+      3:
+        description: "Privileged access is tightly controlled with logging"
+        cloud_applicability: "critical"
+        controls:
+          - "All of ML2"
+          - "Privileged access workstations for admin tasks"
+          - "Break-glass procedures documented and tested"
+          - "Admin session recording"
+
+  multi-factor-authentication:
+    title: "Multi-Factor Authentication"
+    maturity_levels:
+      1:
+        description: "MFA for internet-facing services"
+        cloud_applicability: "critical"
+        controls:
+          - "MFA on all console/portal access"
+          - "MFA on all SSO/IdP authentication"
+          - "Root/owner account has hardware MFA"
+      2:
+        description: "MFA for all users of important systems"
+        cloud_applicability: "critical"
+        controls:
+          - "All of ML1"
+          - "MFA for CLI/API access (short-lived tokens)"
+          - "MFA for VPN and bastion access"
+          - "Phishing-resistant MFA methods"
+      3:
+        description: "Phishing-resistant MFA for all users"
+        cloud_applicability: "critical"
+        controls:
+          - "All of ML2"
+          - "Hardware security keys for privileged users"
+          - "Certificate-based authentication"
+          - "Passwordless where supported"
+
+  patch-os:
+    title: "Patch Operating Systems"
+    maturity_levels:
+      1:
+        description: "OS patches for internet-facing services applied within two weeks"
+        cloud_applicability: "moderate"
+        controls:
+          - "Managed OS instances patched via SSM/OS Config"
+          - "Container host OS managed by provider (Fargate, Cloud Run)"
+          - "EKS/GKE node auto-upgrade enabled"
+      2:
+        description: "OS patches applied within 48 hours"
+        cloud_applicability: "moderate"
+        controls:
+          - "All of ML1"
+          - "Automated patch compliance reporting"
+          - "Non-compliant instances quarantined"
+      3:
+        description: "OS patches applied within 48 hours, vulnerability scanner"
+        cloud_applicability: "moderate"
+        controls:
+          - "All of ML2"
+          - "Inspector/SCC continuous OS scanning"
+          - "Immutable infrastructure (replace, don't patch)"
+
+  regular-backups:
+    title: "Regular Backups"
+    maturity_levels:
+      1:
+        description: "Backups performed and tested"
+        cloud_applicability: "high"
+        controls:
+          - "Automated backups for databases (RDS, Cloud SQL)"
+          - "S3/GCS versioning enabled on critical buckets"
+          - "Backup retention meets business requirements"
+      2:
+        description: "Backups stored offline or disconnected"
+        cloud_applicability: "high"
+        controls:
+          - "All of ML1"
+          - "Cross-region backup replication"
+          - "Backup vault with resource policy (no delete)"
+          - "Backup testing automated"
+      3:
+        description: "Backups tested as part of DR exercises"
+        cloud_applicability: "high"
+        controls:
+          - "All of ML2"
+          - "Cross-account backup vault"
+          - "Point-in-time recovery tested quarterly"
+          - "Backup encryption with customer-managed keys"

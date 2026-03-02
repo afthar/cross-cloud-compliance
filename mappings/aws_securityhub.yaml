@@ -1,0 +1,162 @@
+# AWS Security Hub control → compliance framework mapping
+# Maps FSBP (Foundational Security Best Practices) and CIS controls
+# to Essential Eight strategies and maturity levels.
+
+provider: aws
+source: securityhub
+standards:
+  - "aws-foundational-security-best-practices/v/1.0.0"
+  - "cis-aws-foundations-benchmark/v/1.4.0"
+
+controls:
+  # IAM — maps to E8: Restrict Admin Privileges, MFA
+  IAM.1:
+    title: "IAM policies should not allow full '*' administrative privileges"
+    severity: HIGH
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 1
+    cis: "1.16"
+
+  IAM.2:
+    title: "IAM users should not have IAM policies attached"
+    severity: LOW
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 1
+
+  IAM.3:
+    title: "IAM users' access keys should be rotated every 90 days or less"
+    severity: MEDIUM
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 2
+    cis: "1.4"
+
+  IAM.4:
+    title: "IAM root user access key should not exist"
+    severity: CRITICAL
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 1
+    cis: "1.9"
+
+  IAM.5:
+    title: "MFA should be enabled for all IAM users that have a console password"
+    severity: MEDIUM
+    e8_strategy: multi-factor-authentication
+    e8_maturity: 1
+    cis: "1.10"
+
+  IAM.6:
+    title: "Hardware MFA should be enabled for the root user"
+    severity: CRITICAL
+    e8_strategy: multi-factor-authentication
+    e8_maturity: 1
+    cis: "1.14"
+
+  IAM.8:
+    title: "Unused IAM user credentials should be removed"
+    severity: MEDIUM
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 2
+
+  # SSM — maps to E8: Patch OS, Patch Applications
+  SSM.1:
+    title: "EC2 instances should be managed by AWS Systems Manager"
+    severity: MEDIUM
+    e8_strategy: patch-os
+    e8_maturity: 1
+
+  SSM.2:
+    title: "EC2 instances managed by SSM should have a patch compliance status of COMPLIANT"
+    severity: HIGH
+    e8_strategy: patch-os
+    e8_maturity: 1
+
+  SSM.3:
+    title: "EC2 instances managed by SSM should have an association compliance status of COMPLIANT"
+    severity: HIGH
+    e8_strategy: patch-os
+    e8_maturity: 2
+
+  # S3 — maps to E8: Regular Backups (versioning), Restrict Admin (access)
+  S3.1:
+    title: "S3 general purpose buckets should have block public access settings enabled"
+    severity: MEDIUM
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 1
+
+  S3.8:
+    title: "S3 general purpose buckets should block public access at bucket level"
+    severity: HIGH
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 1
+
+  S3.14:
+    title: "S3 general purpose buckets should have versioning enabled"
+    severity: LOW
+    e8_strategy: regular-backups
+    e8_maturity: 1
+
+  # RDS — maps to E8: Regular Backups, Patch Applications
+  RDS.1:
+    title: "RDS snapshot should be private"
+    severity: CRITICAL
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 1
+
+  RDS.2:
+    title: "RDS DB instances should prohibit public access"
+    severity: CRITICAL
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 1
+
+  RDS.3:
+    title: "RDS DB instances should have encryption at rest enabled"
+    severity: MEDIUM
+    e8_strategy: regular-backups
+    e8_maturity: 2
+
+  # EC2 — maps to E8: Application Control, Patch OS
+  EC2.8:
+    title: "EC2 instances should use Instance Metadata Service Version 2 (IMDSv2)"
+    severity: HIGH
+    e8_strategy: user-application-hardening
+    e8_maturity: 2
+
+  EC2.18:
+    title: "Security groups should only allow unrestricted incoming traffic for authorized ports"
+    severity: HIGH
+    e8_strategy: application-control
+    e8_maturity: 1
+
+  EC2.19:
+    title: "Security groups should not allow unrestricted access to ports with high risk"
+    severity: CRITICAL
+    e8_strategy: application-control
+    e8_maturity: 1
+
+  # Lambda — maps to E8: Patch Applications, Application Control
+  Lambda.1:
+    title: "Lambda function policies should prohibit public access"
+    severity: CRITICAL
+    e8_strategy: application-control
+    e8_maturity: 1
+
+  Lambda.2:
+    title: "Lambda functions should use supported runtimes"
+    severity: MEDIUM
+    e8_strategy: patch-applications
+    e8_maturity: 1
+
+  # CloudTrail — maps to E8: Restrict Admin (audit trail)
+  CloudTrail.1:
+    title: "CloudTrail should be enabled and configured with at least one multi-Region trail"
+    severity: HIGH
+    e8_strategy: restrict-admin-privileges
+    e8_maturity: 2
+    cis: "3.1"
+
+  CloudTrail.2:
+    title: "CloudTrail should have encryption at rest enabled"
+    severity: MEDIUM
+    e8_strategy: regular-backups
+    e8_maturity: 2
+    cis: "3.7"
