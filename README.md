@@ -1,12 +1,16 @@
 # cross-cloud-compliance
 
-Normalise security findings from multiple cloud providers into a single compliance view against Australian frameworks.
+Normalise security findings from multiple cloud providers into a single compliance view against Australian regulatory frameworks.
 
-## Problem
+## Why this exists
 
-Organisations running workloads across AWS, GCP, and Azure get security findings in three different formats, three different severity scales, and three different consoles. Mapping those findings to compliance obligations (Essential Eight, ISM, CIS Benchmarks, RFFR) is manual, error-prone, and typically done in spreadsheets once a quarter.
+Organisations running workloads across AWS, GCP, and Azure get security findings in three different formats, three different severity scales, and three different consoles. Compliance frameworks (Essential Eight, ISM, RFFR, ISO 27001, Privacy Act 1988) don't care which cloud you're in — but every tool does.
 
-This project replaces that with continuous, automated compliance posture reporting.
+The result: compliance teams work from quarterly spreadsheets, security teams work from cloud-native dashboards, and boards get a PowerPoint that's out of date before the meeting starts.
+
+This project replaces that with continuous, automated compliance posture reporting that translates cloud-native findings into framework-specific evidence. It runs on Lambda, costs under $150/month, and produces the same output that a six-figure CSPM platform would — scoped to Australian regulatory requirements.
+
+Built from real-world experience running cross-cloud compliance across a 5-account AWS Organization and 32 GCP projects under RFFR Category 1 obligations.
 
 ## Architecture
 
@@ -37,7 +41,9 @@ This project replaces that with continuous, automated compliance posture reporti
 │  - ACSC Essential Eight (maturity levels 1-3)       │
 │  - ISM (Information Security Manual)                │
 │  - CIS Benchmarks (AWS, GCP, Azure)                │
-│  - RFFR (Registrar Financial Fitness Rules)         │
+│  - RFFR (Regulatory Financial Fitness Rules)         │
+│  - ISO 27001                                        │
+│  - Privacy Act 1988 (Tranche 1 reforms)             │
 └────────────────────────┬────────────────────────────┘
                          │
                          ▼
@@ -123,9 +129,20 @@ The mapping engine translates cloud-native security controls to compliance frame
     └── fixtures/                 # Sample findings from each provider
 ```
 
+## Supported Frameworks
+
+| Framework | Scope | Status |
+|---|---|---|
+| ACSC Essential Eight | Maturity levels 1-3, all 8 strategies | Mapped |
+| ISM (Information Security Manual) | Cloud-relevant controls | Mapped |
+| CIS Benchmarks | AWS, GCP, Azure foundations | Mapped |
+| RFFR | ICT Security, Privacy, Data Governance sections | In progress |
+| ISO 27001:2022 | Annex A controls mappable to cloud findings | In progress |
+| Privacy Act 1988 | Tranche 1 automated decision-making indicators | Planned |
+
 ## Status
 
-Work in progress. Mapping definitions and normalisation layer under active development.
+Active development. Normalisation layer and E8/ISM/CIS mappings functional. RFFR and Privacy Act mappings under development.
 
 ## License
 
