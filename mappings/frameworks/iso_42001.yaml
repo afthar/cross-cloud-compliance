@@ -1,0 +1,351 @@
+framework:
+  name: "ISO/IEC 42001:2023"
+  version: "2023"
+  url: "https://www.iso.org/standard/81230.html"
+  description: "AI Management System — requirements for establishing, implementing, maintaining, and improving an AI management system"
+
+domains:
+  governance:
+    title: "AI Governance"
+    controls:
+      ISO42001-GO-001:
+        title: "AI Policy"
+        description: "Establish and maintain an AI policy covering scope, objectives, ethical principles, and acceptable use"
+        cloud_controls:
+          aws:
+            - "Bedrock Guardrails configuration"
+            - "SageMaker model approval workflows"
+          gcp:
+            - "Vertex AI model governance settings"
+            - "Organisation policy constraints for AI services"
+        detectability: "partial"
+
+      ISO42001-GO-002:
+        title: "Leadership commitment"
+        description: "Top management demonstrates leadership by providing resources and integrating AI governance into business processes"
+        cloud_controls: {}
+        detectability: "governance-only"
+
+      ISO42001-GO-003:
+        title: "Roles and responsibilities"
+        description: "Assign and communicate roles for AI risk ownership and ethical oversight"
+        cloud_controls:
+          aws:
+            - "IAM roles for Bedrock/SageMaker access"
+            - "Service control policies restricting AI service usage"
+          gcp:
+            - "IAM roles for Vertex AI access"
+            - "Organisation policy for AI API enablement"
+        detectability: "partial"
+
+      ISO42001-GO-004:
+        title: "Risk assessment"
+        description: "Identify and assess risks specific to AI systems including bias, safety, reliability, and misuse"
+        cloud_controls:
+          aws:
+            - "Bedrock model invocation logging"
+            - "CloudWatch metrics on model latency and errors"
+          gcp:
+            - "Vertex AI model monitoring"
+            - "Cloud Audit Logs for AI API calls"
+        detectability: "partial"
+
+      ISO42001-GO-005:
+        title: "Interested parties"
+        description: "Identify stakeholders affected by AI systems and understand their expectations"
+        cloud_controls: {}
+        detectability: "governance-only"
+
+  planning:
+    title: "AI Planning"
+    controls:
+      ISO42001-PL-001:
+        title: "AI objectives"
+        description: "Establish measurable AI objectives consistent with the AI policy"
+        cloud_controls: {}
+        detectability: "governance-only"
+
+      ISO42001-PL-002:
+        title: "Risk treatment"
+        description: "Plan treatment of AI-specific risks with appropriate controls"
+        cloud_controls:
+          aws:
+            - "Bedrock Guardrails content filters"
+            - "SageMaker model monitor alerts"
+          gcp:
+            - "Vertex AI safety filters"
+            - "Model monitoring drift detection"
+        detectability: "partial"
+
+      ISO42001-PL-003:
+        title: "AI impact assessment"
+        description: "Assess potential societal and individual impacts of AI systems before deployment"
+        cloud_controls: {}
+        detectability: "governance-only"
+
+  support:
+    title: "AI Support"
+    controls:
+      ISO42001-SU-001:
+        title: "Competence"
+        description: "Determine and maintain necessary competence for AI governance and operations"
+        cloud_controls: {}
+        detectability: "governance-only"
+
+      ISO42001-SU-002:
+        title: "Awareness"
+        description: "Staff awareness of AI policy, acceptable use, and reporting channels"
+        cloud_controls: {}
+        detectability: "governance-only"
+
+      ISO42001-SU-003:
+        title: "Documentation"
+        description: "Maintain model cards covering purpose, training data, performance metrics, and limitations"
+        cloud_controls:
+          aws:
+            - "SageMaker Model Cards"
+            - "Bedrock custom model metadata"
+          gcp:
+            - "Vertex AI Model Registry metadata"
+            - "Model versioning and lineage"
+        detectability: "partial"
+
+      ISO42001-SU-004:
+        title: "Data governance"
+        description: "Manage training data quality, bias in datasets, and data provenance records"
+        cloud_controls:
+          aws:
+            - "S3 bucket policies on training data"
+            - "Macie PII detection on training datasets"
+            - "Glue Data Catalog lineage"
+          gcp:
+            - "Cloud DLP inspection of training data"
+            - "Dataplex data quality rules"
+            - "BigQuery column-level security"
+        detectability: "high"
+
+  operations:
+    title: "AI Operations"
+    controls:
+      ISO42001-OP-001:
+        title: "AI system lifecycle"
+        description: "Manage the full lifecycle from design through deployment, monitoring, and retirement"
+        cloud_controls:
+          aws:
+            - "SageMaker pipeline stages"
+            - "Bedrock provisioned throughput lifecycle"
+          gcp:
+            - "Vertex AI pipeline orchestration"
+            - "Model deployment and traffic splitting"
+        detectability: "partial"
+
+      ISO42001-OP-002:
+        title: "Third-party AI"
+        description: "Assess and govern third-party AI services including cloud AI APIs and pre-trained models"
+        cloud_controls:
+          aws:
+            - "Bedrock model access permissions"
+            - "Service control policies for AI services"
+          gcp:
+            - "Organisation policy for Vertex AI model access"
+            - "VPC Service Controls for AI APIs"
+        detectability: "high"
+
+      ISO42001-OP-003:
+        title: "Responsible development"
+        description: "Ethical review, bias testing, and societal impact consideration during development"
+        cloud_controls:
+          aws:
+            - "SageMaker Clarify bias reports"
+            - "Bedrock Guardrails test results"
+          gcp:
+            - "Vertex AI fairness indicators"
+            - "Model evaluation metrics"
+        detectability: "partial"
+
+      ISO42001-OP-004:
+        title: "Testing and validation"
+        description: "Validate AI performance, accuracy, robustness, and fairness before deployment"
+        cloud_controls:
+          aws:
+            - "SageMaker model quality monitoring"
+            - "Bedrock evaluation jobs"
+          gcp:
+            - "Vertex AI evaluation pipelines"
+            - "Model batch prediction validation"
+        detectability: "high"
+
+      ISO42001-OP-005:
+        title: "Monitoring"
+        description: "Monitor production AI systems for drift, bias emergence, and unexpected behaviours"
+        cloud_controls:
+          aws:
+            - "SageMaker Model Monitor"
+            - "Bedrock invocation logging via CloudTrail"
+            - "CloudWatch anomaly detection on model metrics"
+          gcp:
+            - "Vertex AI Model Monitoring"
+            - "Cloud Monitoring for prediction latency"
+            - "Audit logs for AI API usage"
+        detectability: "high"
+
+  performance:
+    title: "AI Performance Evaluation"
+    controls:
+      ISO42001-PE-001:
+        title: "Performance evaluation"
+        description: "Define KPIs for AI systems and collect metrics systematically"
+        cloud_controls:
+          aws:
+            - "CloudWatch dashboards for model metrics"
+            - "SageMaker Experiments tracking"
+          gcp:
+            - "Vertex AI TensorBoard"
+            - "Cloud Monitoring custom metrics"
+        detectability: "partial"
+
+      ISO42001-PE-002:
+        title: "Internal audit"
+        description: "Conduct audits to confirm AI governance conforms to requirements"
+        cloud_controls:
+          aws:
+            - "CloudTrail AI service audit trail"
+            - "Config rules for AI resource compliance"
+          gcp:
+            - "Cloud Audit Logs for Vertex AI"
+            - "Security Command Center AI findings"
+        detectability: "partial"
+
+      ISO42001-PE-003:
+        title: "Management review"
+        description: "Quarterly management review of AI risk, audit findings, and improvement actions"
+        cloud_controls: {}
+        detectability: "governance-only"
+
+  improvement:
+    title: "AI Improvement"
+    controls:
+      ISO42001-IM-001:
+        title: "Nonconformity and incident response"
+        description: "React to AI incidents, perform root cause analysis, implement corrections"
+        cloud_controls:
+          aws:
+            - "GuardDuty findings on AI endpoints"
+            - "CloudWatch alarms on model error rates"
+          gcp:
+            - "SCC findings on AI infrastructure"
+            - "Error Reporting for Vertex AI"
+        detectability: "partial"
+
+      ISO42001-IM-002:
+        title: "Continual improvement"
+        description: "Use findings, incidents, and feedback to improve the AI management system"
+        cloud_controls: {}
+        detectability: "governance-only"
+
+  annex_a:
+    title: "Annex A — AI-Specific Controls"
+    controls:
+      ISO42001-AA-001:
+        title: "Transparency"
+        description: "Provide meaningful information about how AI systems make decisions"
+        cloud_controls:
+          aws:
+            - "Bedrock Guardrails trace logging"
+            - "SageMaker Clarify explanations"
+          gcp:
+            - "Vertex AI Explainability"
+            - "Model prediction explanations"
+        detectability: "partial"
+
+      ISO42001-AA-002:
+        title: "Explainability"
+        description: "Provide explanations of AI decisions appropriate to context and risk level"
+        cloud_controls:
+          aws:
+            - "SageMaker Clarify feature importance"
+            - "Bedrock response metadata"
+          gcp:
+            - "Vertex AI feature attributions"
+            - "Vertex Explainable AI"
+        detectability: "partial"
+
+      ISO42001-AA-003:
+        title: "Fairness and bias"
+        description: "Monitor and mitigate algorithmic bias to promote fair outcomes"
+        cloud_controls:
+          aws:
+            - "SageMaker Clarify bias metrics"
+            - "Model monitor data quality constraints"
+          gcp:
+            - "Vertex AI fairness indicators"
+            - "What-If Tool analysis"
+        detectability: "high"
+
+      ISO42001-AA-004:
+        title: "Human oversight"
+        description: "Maintain appropriate human oversight of AI decisions"
+        cloud_controls:
+          aws:
+            - "SageMaker model approval workflows"
+            - "Step Functions human review tasks"
+          gcp:
+            - "Vertex AI model deployment approvals"
+            - "Workflows human-in-the-loop steps"
+        detectability: "partial"
+
+      ISO42001-AA-005:
+        title: "Privacy in AI"
+        description: "Protect personal data throughout the AI data lifecycle"
+        cloud_controls:
+          aws:
+            - "Macie on training data buckets"
+            - "Bedrock Guardrails PII filters"
+            - "S3 lifecycle policies on training data"
+          gcp:
+            - "Cloud DLP on training data"
+            - "VPC Service Controls for AI data"
+            - "BigQuery column-level access control"
+        detectability: "high"
+
+      ISO42001-AA-006:
+        title: "Security of AI systems"
+        description: "Secure models, training data, and inference pipelines against adversarial attacks"
+        cloud_controls:
+          aws:
+            - "SageMaker VPC endpoints"
+            - "KMS encryption on model artifacts"
+            - "WAF on Bedrock API endpoints"
+            - "Security Hub findings on AI infrastructure"
+          gcp:
+            - "VPC Service Controls for Vertex AI"
+            - "CMEK on model storage"
+            - "Private endpoints for prediction"
+            - "SCC findings on AI infrastructure"
+        detectability: "high"
+
+      ISO42001-AA-007:
+        title: "Accountability"
+        description: "Maintain audit trails and clear ownership for AI outcomes"
+        cloud_controls:
+          aws:
+            - "CloudTrail logging for all AI API calls"
+            - "IAM role attribution for model operations"
+          gcp:
+            - "Cloud Audit Logs for Vertex AI operations"
+            - "IAM bindings on AI resources"
+        detectability: "high"
+
+      ISO42001-AA-008:
+        title: "AI system inventory"
+        description: "Maintain a register of all AI systems covering purpose, risk classification, and ownership"
+        cloud_controls:
+          aws:
+            - "SageMaker model registry"
+            - "Bedrock custom model inventory"
+            - "Resource tagging for AI workloads"
+          gcp:
+            - "Vertex AI Model Registry"
+            - "Asset Inventory for AI resources"
+            - "Resource labels for AI workloads"
+        detectability: "high"
